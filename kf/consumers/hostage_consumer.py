@@ -21,13 +21,20 @@ consumer = KafkaConsumer(
 )
 
 
-# def check_sentence():
+def check_sentence(sentences):
+    ind = 0
+    for i,w in enumerate(sentences):
+        if "hostage" in w.split(' '):
+            sentences[ind] = w
+            print(sentences)
+
+
 
 
 
 for message in consumer:
     sentences = message.value
     print("the message is com")
-    # check_sentence()
+    check_sentence(sentences)
     # db_session.add(sentences)
     print(f"Stored high-value transaction: {sentences}")

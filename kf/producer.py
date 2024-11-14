@@ -9,7 +9,7 @@ producer = KafkaProducer(
 )
 
 def if_is(body, parameter):
-    is_true = [i for i in body if any(parameter == j for j in i.split(' '))]
+    is_true = [i for i in body if any(parameter in j for j in i.split(' '))]
     if len(is_true) > 0:
          return True
     else:
@@ -19,11 +19,11 @@ def if_is(body, parameter):
 def email_check(email):
     message_body = email['sentences']
     hostage = if_is(message_body, 'hostage')
-    explos = if_is(message_body, 'explores')
+    explosive = if_is(message_body, 'explos')
     if hostage:
         producer.send("hostage.messages", value=message_body)
         print("the hostage is sender")
-    if explos:
+    if explosive:
         producer.send("explosive.messages", value=message_body)
         print("the explos is sender")
 
