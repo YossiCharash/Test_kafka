@@ -7,6 +7,8 @@ client = MongoClient('mongodb://localhost:27017')
 db = client['suspicious_emails']
 collection = db['all_email']
 
+
+
 # Kafka consumer setup
 consumer = KafkaConsumer(
     'all.messages',

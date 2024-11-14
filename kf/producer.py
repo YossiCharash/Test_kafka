@@ -21,10 +21,10 @@ def email_check(email):
     hostage = if_is(message_body, 'hostage')
     explosive = if_is(message_body, 'explos')
     if hostage:
-        producer.send("hostage.messages", value=message_body)
+        producer.send("hostage.messages", value=email)
         print("the hostage is sender")
     if explosive:
-        producer.send("explosive.messages", value=message_body)
+        producer.send("explosive.messages", value=email)
         print("the explos is sender")
 
 

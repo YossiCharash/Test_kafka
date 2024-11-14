@@ -1,16 +1,11 @@
 from kafka import KafkaConsumer
 import json
+from sqlalchemy.orm import declarative_base
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+# from kf.consumers.tabales import insert_hostage
 
+Base = declarative_base()
 
-
-connection_url = "postgresql://yossi:8520@localhost:5432/Suspicious_emails"
-engine = create_engine(connection_url)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
 # Kafka consumer setup
 consumer = KafkaConsumer(
     'hostage.messages',
@@ -21,13 +16,17 @@ consumer = KafkaConsumer(
 )
 
 
+
+
+
 def check_sentence(sentences):
     ind = 0
+    new_sentences = []
     for i,w in enumerate(sentences):
         if "hostage" in w.split(' '):
             sentences[ind] = w
             print(sentences)
-
+            new_sentences.append(w)
 
 
 
@@ -35,6 +34,6 @@ def check_sentence(sentences):
 for message in consumer:
     sentences = message.value
     print("the message is com")
-    check_sentence(sentences)
-    # db_session.add(sentences)
+    check_sentence(sentences['sentences'])
+    # insert_hostage(sentences)
     print(f"Stored high-value transaction: {sentences}")
