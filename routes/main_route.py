@@ -5,7 +5,7 @@ Email = Blueprint('Email', __name__)
 
 @Email.route('/api/email', methods=['POST'])
 def insert_new_email():
-    new_email = request.data
+    new_email = request.json
     send_message(new_email)
     return jsonify("is send to sended"),200
 
