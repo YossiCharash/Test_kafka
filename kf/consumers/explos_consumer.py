@@ -20,8 +20,18 @@ consumer = KafkaConsumer(
     value_deserializer=lambda m: json.loads(m.decode('utf-8'))
 )
 
+def check_sentences(sentences):
+    ind = 0
+    for i,w in enumerate(sentences):
+        if "explos" in w:
+            sentences[ind] = w
+            print(sentences)
+
+
+
 for message in consumer:
     sentences = message.value
     print("the message is com")
+    check_sentences(sentences)
     # db_session.add(sentences)
     print(f"Stored high-value transaction: {sentences}")
