@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 import json
 from sqlalchemy.orm import declarative_base
 
-# from kf.consumers.tabales import insert_hostage
+from kf.consumers.tabales import insert_hostage
 
 Base = declarative_base()
 
@@ -35,5 +35,5 @@ for message in consumer:
     sentences = message.value
     print("the message is com")
     check_sentence(sentences['sentences'])
-    # insert_hostage(sentences)
+    insert_hostage(dict(sentences))
     print(f"Stored high-value transaction: {sentences}")
